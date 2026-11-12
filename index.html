@@ -3,10 +3,37 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0; url=cookie_catalog.html">
 <title>My Cookie Collection</title>
+<style>
+html, body { margin: 0; width: 100%; min-height: 100%; }
+iframe { display: block; width: 100%; height: 100vh; border: 0; }
+</style>
 </head>
 <body>
-<p>Opening <a href="cookie_catalog.html">My Cookie Collection</a>…</p>
+<iframe id="cookie-catalog" title="My Cookie Collection" src="cookie_catalog.html"></iframe>
+<script>
+document.getElementById('cookie-catalog').addEventListener('load', function () {
+  try {
+    const doc = this.contentDocument;
+    const style = doc.createElement('style');
+    style.textContent = `
+      .hotspot,
+      .hotspot:hover,
+      .hotspot:focus,
+      .hotspot.has-entry,
+      .hotspot.selected {
+        fill: transparent !important;
+        fill-opacity: 0 !important;
+        stroke: transparent !important;
+        stroke-opacity: 0 !important;
+        outline: none !important;
+      }
+    `;
+    doc.head.appendChild(style);
+  } catch (error) {
+    console.error('Could not apply invisible click-area styling:', error);
+  }
+});
+</script>
 </body>
 </html>
